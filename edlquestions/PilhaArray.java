@@ -25,20 +25,20 @@ public class PilhaArray implements Pilha{
                 capacidade+=FC;
             }
             Object b[] = new Object[capacidade];
-            for (int f = 0; f<a.length; f++){
+            for (int f = 0; f<el.length; f++){
                 b[f] = el[f];
             }
             el = b;
         }
-        a[++t] = o;
+        el[++t] = o;
     }
 
     public Object pop() throws PilhaVaziaException{
         if(isEmpty()){
             throw new PilhaVaziaException("A pilha está vazia");
-            Object r = a[t--];
-            return r;
         }
+        Object r = el[t--];
+        return r;
     }
 
     public Object top() throws PilhaVaziaException{
@@ -49,10 +49,11 @@ public class PilhaArray implements Pilha{
     }
 
     public boolean isEmpty(){
-        return t == -1
+        return t == -1;
     }
 
     public int size(){
         return t+1;
     }
-}
+
+}   

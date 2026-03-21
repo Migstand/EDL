@@ -8,8 +8,8 @@ public class MainPTeste{
 
         System.out.print(lista.size());
 
-        lista.top();
+        lista.pop();
         
-        System.out.println(lista.size());
+        System.out.print(lista.size());
     }
 }

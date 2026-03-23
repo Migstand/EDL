@@ -14,21 +14,19 @@ public class PilhaArrayDouble implements PilhaDouble{
 
     // * MÉTODOS * //
     public void pushred(Object o){
-        if (tv  >= tb){
-            
+        if (tv  >= tb + 1){
+            int minus = sizeblack();
             capacidade*=2;
 
-            int c;
-
             Object b[] = new Object[capacidade];
-            for (int f = 0; f<el.length; f++){
-                c = f;
-                if (f>tv){
-                    c = f + (tb - tv) - 1;
-                }
-                
-                b[c] = el[c];
+            for (int f = 0; f<(tv+1); f++){
+                b[f] = el[f];
             }
+            int new_black = capacidade - minus;
+            for (int f = 0; f < el.length-(tv+1); f++){
+                b[new_black+f] = el[tb+f];
+            }
+            tb = new_black;
             el = b;
         }
         el[++tv] = o;
@@ -71,21 +69,20 @@ public class PilhaArrayDouble implements PilhaDouble{
     // * MÉTODOS black* //
 
     public void pushblack(Object o){
-        if (tb <= tv){
-
+        if (tb <= tv + 1){
+            int minus = sizeblack();
             capacidade*=2;
 
-            int c;
 
             Object b[] = new Object[capacidade];
-            for (int f = 0; f<el.length; f++){
-                c = f;
-                if (f>tv){
-                    c = f + (tb - tv) - 1;
-                }
-                
-                b[c] = el[c];
+            for (int f = 0; f<(tv+1); f++){
+                b[f] = el[f];
             }
+            int new_black = capacidade - minus;
+            for (int f = 0; f < el.length-(tv+1); f++){
+                b[new_black+f] = el[tb+f];
+            }
+            tb = new_black;
             el = b;
         }
         el[--tb] = o;
@@ -103,6 +100,6 @@ public class PilhaArrayDouble implements PilhaDouble{
         if(isEmptyblack()){
             throw new PilhaVaziaException("A pilha está vazia");
         }
-        return tb;// el[tb] ;
+        return el[tb];
     }
 }   

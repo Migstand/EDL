@@ -14,6 +14,7 @@ public class MainPTeste{
 
         PilhaArrayDouble redblack = new PilhaArrayDouble(7);
 
+        //redblack.popblack();
         redblack.pushred(10);
         redblack.pushred(20);
         redblack.pushblack(30);
@@ -30,6 +31,15 @@ public class MainPTeste{
         System.out.println(redblack.topred() + " Topo Red");
         redblack.pushred(70);
         System.out.println(redblack.topred() + " Topo Red");
+
+        System.out.println(redblack.size() + " Total");
+        System.out.println(redblack.sizered() + " Vermelhos");
+        System.out.println(redblack.sizeblack() + " Blacks");
+        System.out.println(redblack.topred() + " Topo Vermelho");
+        System.out.println(redblack.topblack() + " Topo Black");
+        
+        redblack.popred();
+        redblack.popblack();
 
         System.out.println(redblack.size() + " Total");
         System.out.println(redblack.sizered() + " Vermelhos");

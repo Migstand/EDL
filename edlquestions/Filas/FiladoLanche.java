@@ -1,9 +1,9 @@
 public class FiladoLanche{
     int ini = 0, fim = 0, cap, incre;
-    Object O[];
+    Object fil[];
 
     public FiladoLanche(int cap, int incre){
-        O = new Object[cap];
+        fil = new Object[cap];
         this.cap = cap;
         this.incre = incre;
     }
@@ -20,23 +20,23 @@ public class FiladoLanche{
             Object[] neway = new Object[novota];
             int prim = ini;
             for (int fal = 0; fal < size(); fal++){
-                neway[fal] = O[prim];
+                neway[fal] = fil[prim];
                 prim = (prim + 1) % cap;
             }
             fim = size(); //define o novo final
             ini = 0; // define o novo inicio
             cap = novota;
-            O = neway;
+            fil = neway;
         }
-        O[fim] = o;
+        fil[fim] = o;
         fim = (fim + 1) % cap;
     }
 
     public Object dequeue(){
         if(isEmpty()){
-            throw new FilaVaziaExcecao("A Pilha está vazia");
+            throw new FilaVaziaExcecao("A Fila está vazia");
         }
-        Object temp = O[ini];
+        Object temp = fil[ini];
         ini = (ini + 1) % cap;
         return temp;
     }
@@ -47,5 +47,17 @@ public class FiladoLanche{
 
     public boolean isEmpty(){
         return fim == ini;
+    }
+    public Object first() throws FilaVaziaExcecao{
+        if(isEmpty()){
+            throw new FilaVaziaExcecao("A fila está vazia!!!");
+        }
+        return fil[ini];
+    }
+    public int indexini(){ //Metodo auxiliar
+        return ini;
+    }
+    public int indexfim(){ //Metodo auxiliar
+        return fim;
     }
 }

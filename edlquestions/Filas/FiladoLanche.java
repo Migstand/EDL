@@ -1,6 +1,6 @@
-public class FiladoLanche{
-    int ini = 0, fim = 0, cap, incre;
-    Object fil[];
+public class FiladoLanche implements Fila{
+    private int ini = 0, fim = 0, cap, incre;
+    private Object[] fil;
 
     public FiladoLanche(int cap, int incre){
         fil = new Object[cap];
@@ -32,7 +32,7 @@ public class FiladoLanche{
         fim = (fim + 1) % cap;
     }
 
-    public Object dequeue(){
+    public Object dequeue() throws FilaVaziaExcecao{
         if(isEmpty()){
             throw new FilaVaziaExcecao("A Fila está vazia");
         }

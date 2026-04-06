@@ -7,4 +7,10 @@ public class No{
     public void setElemento(Object o){
         elemento = o;
     }
+    public void setNext(No o){
+        proximo = o;
+    }
+    public No getNext(){
+        return proximo;
+    }
 }

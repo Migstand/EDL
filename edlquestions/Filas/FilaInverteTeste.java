@@ -8,6 +8,7 @@ public class FilaInverteTeste{
         check.enqueue("chupa cabra");
         check.enqueue(" Catarro");
         check.enqueue("Cabum");
+        check.switche();
         check.enqueue("Carlinhos");
         check.enqueue("Papyrus");
         System.out.println(check.size());

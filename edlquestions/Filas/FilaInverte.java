@@ -57,6 +57,7 @@ public class FilaInverte implements Fila{
                 cap = novata;
                 fim = cap;
                 ini = size() - 1;
+                fil = neway;
             }
             fil[fim] = o;
             fim = (fim - 1 + cap) % cap;
@@ -74,6 +75,7 @@ public class FilaInverte implements Fila{
                 cap = novata;
                 fim = cap;
                 ini = size() - 1;
+                fil = neway;
             }
         }
     }
@@ -115,6 +117,7 @@ public class FilaInverte implements Fila{
                 cap = novata;
                 fim = cap;
                 ini = size() - 1;
+                fil = neway;
             }
         }
         return temp;

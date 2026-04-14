@@ -27,6 +27,22 @@ public class FilaInverte implements Fila{
             }
             fil[fim] = o;
             fim = (fim + 1) % cap;
+
+            if (size() == cap/3 ){
+                int novata;
+                novata = cap/2;
+
+                Object[] neway = new Object[novata];
+                int prim = ini;
+                for (int fal = 0; fal < size(); fal++){
+                    neway[fal] = fil[prim];
+                    prim = (prim + 1) % cap;
+                }
+                fim = size(); //define o novo final
+                ini = 0; // define o novo inicio
+                cap = novata;
+                fil = neway;
+            }
         } else {
             if (size() == cap - 1){ // encheu little college
                 int novata;
@@ -44,6 +60,21 @@ public class FilaInverte implements Fila{
             }
             fil[fim] = o;
             fim = (fim - 1 + cap) % cap;
+
+            if (size() == cap/3){
+                int novata;
+                novata = cap/2;
+
+                Object[] neway = new Object[novata];
+                int ult = fim;
+                for (int fal = 0; fal < size(); fal++){
+                    neway[fal] = fil[ult];
+                    ult = (ult + 1) % cap;
+                }
+                cap = novata;
+                fim = cap;
+                ini = size() - 1;
+            }
         }
     }
 
@@ -54,8 +85,37 @@ public class FilaInverte implements Fila{
         Object temp = fil[ini];
         if (bswitch == 0){
             ini = (ini + 1) % cap;
+            if (size() == cap/3 ){
+                int novata;
+                novata = cap/2;
+
+                Object[] neway = new Object[novata];
+                int prim = ini;
+                for (int fal = 0; fal < size(); fal++){
+                    neway[fal] = fil[prim];
+                    prim = (prim + 1) % cap;
+                }
+                fim = size(); //define o novo final
+                ini = 0; // define o novo inicio
+                cap = novata;
+                fil = neway;
+            }
         } else {
             ini = (ini - 1 + cap) % cap;
+            if (size() == cap/3){
+                int novata;
+                novata = cap/2;
+
+                Object[] neway = new Object[novata];
+                int ult = fim;
+                for (int fal = 0; fal < size(); fal++){
+                    neway[fal] = fil[ult];
+                    ult = (ult + 1) % cap;
+                }
+                cap = novata;
+                fim = cap;
+                ini = size() - 1;
+            }
         }
         return temp;
         

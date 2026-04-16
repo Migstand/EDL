@@ -45,36 +45,36 @@ public class FilaInverte implements Fila{
             }
         } else {
             if (size() == cap - 1){ // encheu little college
-                int novata;
+                int novata,tam = size();
                 novata = cap*2;
 
                 Object[] neway = new Object[novata];
-                int ult = fim;
-                for (int fal = 0; fal < size(); fal++){
+                int ult = (fim + 1) % cap;
+                for (int fal = 0; fal < tam; fal++){
                     neway[fal] = fil[ult];
                     ult = (ult + 1) % cap;
                 }
                 cap = novata;
-                fim = cap;
-                ini = size() - 1;
+                fim = cap - 1;
+                ini = tam - 1;
                 fil = neway;
             }
             fil[fim] = o;
             fim = (fim - 1 + cap) % cap;
 
             if (size() == cap/3){
-                int novata;
+                int novata,tam = size();
                 novata = cap/2;
 
                 Object[] neway = new Object[novata];
-                int ult = fim;
-                for (int fal = 0; fal < size(); fal++){
+                int ult = (fim + 1) % cap;
+                for (int fal = 0; fal < tam; fal++){
                     neway[fal] = fil[ult];
                     ult = (ult + 1) % cap;
                 }
                 cap = novata;
-                fim = cap;
-                ini = size() - 1;
+                fim = cap - 1;
+                ini = tam - 1;
                 fil = neway;
             }
         }
@@ -105,18 +105,18 @@ public class FilaInverte implements Fila{
         } else {
             ini = (ini - 1 + cap) % cap;
             if (size() == cap/3){
-                int novata;
+                int novata,tam = size();
                 novata = cap/2;
 
                 Object[] neway = new Object[novata];
-                int ult = fim;
-                for (int fal = 0; fal < size(); fal++){
+                int ult = (fim + 1) % cap;
+                for (int fal = 0; fal < tam; fal++){
                     neway[fal] = fil[ult];
                     ult = (ult + 1) % cap;
                 }
                 cap = novata;
-                fim = cap;
-                ini = size() - 1;
+                fim = cap -1;
+                ini = tam - 1;
                 fil = neway;
             }
         }

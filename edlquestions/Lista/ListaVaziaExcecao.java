@@ -1,5 +1,5 @@
 public class ListaVaziaExcecao extends RuntimeException{
-    public VetorVazioExcecao(String err){
+    public ListaVaziaExcecao(String err){
         super(err);
     }
 }

@@ -63,6 +63,8 @@ public class ListaLig implements Lista{
         (n.getPrev()).setNext(novo_no);
         n.setPrev(novo_no);
 
+        n.setElemento(novo_no);
+
         return novo_no;
     }
 
@@ -76,6 +78,8 @@ public class ListaLig implements Lista{
         (n.getNext()).setPrev(novo_no);
         n.setNext(novo_no);
 
+        n.setElemento(novo_no);
+        
         return novo_no;
     }
 

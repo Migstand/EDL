@@ -53,7 +53,7 @@ public class VectorArray implements Vetor{
         return tam == 0;
     }
 
-    public void grow(){
+    private void grow(){
         int novata;
         novata = cap*2;
 

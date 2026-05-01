@@ -5,10 +5,10 @@ public interface Lista{
     public boolean isFirst(DubNo n); // V
     public boolean isLast(DubNo n); // V
 
-    public Object first(); // V
-    public Object last(); // V
-    public Object before(DubNo p); // V
-    public Object after(DubNo p); // V
+    public DubNo first(); // V
+    public DubNo last(); // V
+    public DubNo before(DubNo p); // V
+    public DubNo after(DubNo p); // V
     public Object replaceElement(DubNo n, Object o); // V
     
     public void swapElements(DubNo n, DubNo o); // V

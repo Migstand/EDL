@@ -3,6 +3,10 @@ public class ListaLig implements Lista{
     private int tam;
 
     public ListaLig(){
+        this.head = new DubNo();
+        this.tail = new DubNo();
+        this.head.setElemento(null);
+        this.tail.setElemento(null);
         this.head.setNext(tail);
         this.tail.setPrev(head);
         this.tam = 0;
@@ -24,18 +28,22 @@ public class ListaLig implements Lista{
         return tail.getNext() == n;
     }
 
-    public Object first(){
+    public DubNo first(){
+        // DubNo ele = head.getNext();
         return head.getNext();
     }
 
-    public Object last(){
+    public DubNo last(){
+        // DubNo ele = tail.getPrev();
         return tail.getPrev();
     }
 
-    public Object before(DubNo p){
+    public DubNo before(DubNo p){
+        // DubNo ele = p.getPrev();
         return p.getPrev();
     }
-    public Object after(DubNo p){
+    public DubNo after(DubNo p){
+        // DubNo ele = p.getNext();
         return p.getNext();
     }
     
@@ -48,9 +56,9 @@ public class ListaLig implements Lista{
 
 
     public void swapElements(DubNo n, DubNo q){
-        DubNo swap = n;
-        n = q;
-        q = swap;
+        Object swap = n.getElemento();
+        n.setElemento(q.getElemento());
+        q.setElemento(swap);
     }
 
     public DubNo insertBefore(DubNo n, Object o){
@@ -63,8 +71,8 @@ public class ListaLig implements Lista{
         (n.getPrev()).setNext(novo_no);
         n.setPrev(novo_no);
 
-        n.setElemento(novo_no);
-
+        novo_no.setElemento(o);
+        tam += 1;
         return novo_no;
     }
 
@@ -78,8 +86,8 @@ public class ListaLig implements Lista{
         (n.getNext()).setPrev(novo_no);
         n.setNext(novo_no);
 
-        n.setElemento(novo_no);
-        
+        novo_no.setElemento(o);
+        tam += 1;
         return novo_no;
     }
 
@@ -91,7 +99,7 @@ public class ListaLig implements Lista{
         
         (head.getNext()).setPrev(novo_no);
         head.setNext(novo_no);
-
+        tam += 1;
         novo_no.setElemento(o);
     }
 
@@ -103,7 +111,7 @@ public class ListaLig implements Lista{
         
         (tail.getPrev()).setNext(novo_no);
         tail.setPrev(novo_no);
-
+        tam += 1;
         novo_no.setElemento(o);
     }
 
@@ -120,7 +128,15 @@ public class ListaLig implements Lista{
 
         n.setPrev(null);
         n.setNext(null);
-
+        tam -= 1;
         return removed;
-    } 
+    }
+    
+    // public DubNo firstof(){
+    //     return head.getNext();
+    // }
+
+    // public DubNo lastof(){
+    //     return tail.getPrev();
+    // }
 }

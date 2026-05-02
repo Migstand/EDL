@@ -2,11 +2,46 @@ import java.util.Scanner;
 
 public class Listas {
     public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+
+        ListaArray esculacho = new ListaArray(1);
+        //esculacho.remove(0); Elemento não existente
+        
+        Object pri = sc.nextLine();
+        esculacho.insertBefore(1, pri);
+        esculacho.insertFirst("Noob");
+        System.out.println(esculacho.first());
+        for (int loop = 0; loop < 5; loop++){
+            pri = sc.nextLine();
+            esculacho.insertAfter(loop, pri);
+
+            esculacho.insertLast("Eu amo Atlis");
+        }
+
+        esculacho.swapElements(3, 1);
+        esculacho.replaceElement(2, "Luiz");
+        esculacho.insertLast("Davy nooob");
+        System.out.println(esculacho.last());
+        
+        System.out.println("----------------------------");
+        
+        for (int loop = 0; loop < esculacho.size(); loop++){
+            System.out.println(esculacho.before(loop + 1));    
+        }
+        
+        System.out.println("----------------------------");
+        
+        for (int i = 0; i<4; i++){
+            System.out.println(esculacho.remove(0));
+        }
+            
+
         ListaLig robado = new ListaLig();
         
+
         // DubNo removed = robado.last();
         //robado.remove(removed);
-        Scanner sc = new Scanner(System.in);
+        
         Object primeiro = sc.nextLine();
         robado.insertFirst(primeiro);
 

@@ -17,7 +17,7 @@ public class Main{
         System.out.println(" ");
         
 
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 5; i++){
             Object pri = sc.nextLine();
             mr_tree.addFilho(mr_tree.root(), pri);
         }
@@ -29,7 +29,7 @@ public class Main{
         Iterator<No> fil = mr_tree.children(mr_tree.root());
         while (fil.hasNext()){
             No meu_fi = fil.next();
-            for (int i = 0; i < 2; i++){
+            for (int i = 0; i < 1; i++){
                 Object pri = sc.nextLine();
                 mr_tree.addFilho(meu_fi, pri);
             }

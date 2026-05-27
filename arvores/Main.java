@@ -26,7 +26,11 @@ public class Main{
         System.out.println("---------------------------------------");
         System.out.println(" ");
         
+        System.out.println(mr_tree.height(mr_tree.root())-1);
+
         Iterator<No> fil = mr_tree.children(mr_tree.root());
+        No fly = fil.next();
+        fil = mr_tree.children(mr_tree.root());
         while (fil.hasNext()){
             No meu_fi = fil.next();
             for (int i = 0; i < 2; i++){
@@ -39,19 +43,32 @@ public class Main{
 
         System.out.println("---------------------------------------");
         System.out.println(" ");
-        
+
+        // for (int i = 0; i < 5; i++){
+        //     ArrayList<No> down = fly.getFilhos();
+        //     fly = down.get(0);
+        //     Object pri = sc.nextLine();
+        //     mr_tree.addFilho(fly, pri);
+                        
+        // }
         // Iterator<Object> it = mr_tree.elements();
         
         // while (it.hasNext()){
         //     Object mod = it.next();
         //     System.out.println(mod);
         // }
-
+        System.out.println(mr_tree.height(mr_tree.root())-1);
         Iterator<No> it = mr_tree.nos();
         
         while (it.hasNext()){
             No mod = it.next();
-            System.out.println(mod.getElemento());
+            No pai = mod.getPai();//mr_tree.parent(mod);
+            if (pai == null){
+                System.out.println(mod.getElemento() + " O pai: " + "não existe" + ", É externo?: " + mr_tree.isExternal(mod) + ", É interno?: " + mr_tree.isInternal(mod) + ", É raiz?: " + mr_tree.isRoot(mod));
+            } else{
+                System.out.println(mod.getElemento() + " O pai: " + pai.getElemento() + ", É externo?: " + mr_tree.isExternal(mod) + ", É interno?: " + mr_tree.isInternal(mod) + ", É raiz?: " + mr_tree.isRoot(mod));
+            }
+            
         }
     }
 }

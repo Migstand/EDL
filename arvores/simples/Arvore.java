@@ -27,7 +27,7 @@ public class Arvore implements InterfaceArvore{
             for (No ele : filhos){
                 h = Math.max(h, height(ele));
             }
-            return h++;
+            return ++h;
         }
     }
 

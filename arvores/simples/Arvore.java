@@ -7,6 +7,7 @@ public class Arvore implements InterfaceArvore{
 
     public Arvore(Object o){
         raiz = new No(null, o);
+        tam = 1;
     }
 
     // METODOS GENERICOS \\
@@ -93,11 +94,15 @@ public class Arvore implements InterfaceArvore{
 
     // METODOS DE CONSULTA \\
     public boolean isInternal(No no){
-        return (no.getFilhos()) != null;
+        ArrayList<No> filhos = no.getFilhos();
+        int size = filhos.size();
+        return size != 0;
     }
 
     public boolean isExternal(No no){
-        return (no.getFilhos()) == null;
+        ArrayList<No> filhos = no.getFilhos();
+        int size = filhos.size();
+        return size == 0;
     }
 
     public boolean isRoot(No no){

@@ -1,18 +1,19 @@
+import java.util.ArrayList;
 public class HeapArray{
-    private Item[] heap;
+    private ArrayList<Item> heap;
     private int size;
     private int ultimo;
     private int cap;
 
     public HeapArray(Item elemento){
-        cap = 5;
-        heap = new Item[cap];
-        heap[1] = elemento;
+        this.heap = new ArrayList<>();
+        heap.add(null);
+        heap.add(elemento);
         size = 1;
         ultimo = 2;
     }
     public Item elemento(int i){
-        return heap[i];
+        return heap.get(i);
     }
 
     public int size(){
@@ -24,20 +25,20 @@ public class HeapArray{
     }
 
     public void insert(Item ele){
-        if (size == cap){
-            grow();
-        }
-        heap[ultimo] = ele;
+        //if (size == cap){
+        //    grow();
+        //}
+        heap.add(ele);
         upheap(ultimo);
         ultimo++;
         size++;
     }
 
     private void upheap(int cha){
-        while (cha !=1 && heap[cha].getChave() < heap[cha/2].getChave()){
-            Item sub = heap[cha];
-            heap[cha] = heap[cha/2];
-            heap[cha/2] = sub;
+        while (cha !=1 && (heap.get(cha)).getChave() < (heap.get(cha/2)).getChave()){
+            Item sub = heap.get(cha);
+            heap.set(cha, heap.get(cha/2));
+            heap.set(cha/2, sub);
 
             cha = cha /2;
         }
@@ -45,17 +46,18 @@ public class HeapArray{
     }
 
     public Item min(){
-        return heap[1];
+        return heap.get(1);
     }
 
     public int removeMin(){
         Item removed = min();
-        Item menor = min();
-        menor = heap[ultimo-1];
-        heap[ultimo-1] = null;
+        
+        heap.set(1, heap.get(ultimo-1));
         --ultimo;
-        downheap(heap[1].getChave());
-
+        
+        downheap(1);
+        // heap.set(ultimo, null);
+        
         --size;
 
         return removed.getChave();
@@ -63,8 +65,8 @@ public class HeapArray{
 
     private void downheap(int cha){
         
-        Item esq = heap[cha*2];
-        Item dir = heap[(cha*2)+1];
+        Item esq = heap.get(cha*2);
+        Item dir = heap.get((cha*2)+1);
         Item menor;
         int ind;
         if (esq.getChave() > dir.getChave()){
@@ -75,14 +77,26 @@ public class HeapArray{
             ind = (cha*2);
         }
 
-        while (heap[cha*2] == null  && heap[cha].getChave() > menor.getChave()){
+        while ((cha*2) <= size() && (heap.get(cha)).getChave() > menor.getChave()){
+            if (menor.getChave() < (heap.get(cha)).getChave()){
+                    Item sub = heap.get(cha);
+                    heap.set(cha, menor);
+                    heap.set(ind, sub);
+                }
+            
+            cha = ind;
 
-            esq = heap[cha*2];
-            dir = heap[(cha*2)+1];
-
-            if (dir == null){
+            if (cha*2 > size()){
+                break;
+            }
+            esq = heap.get(cha*2);
+            
+            
+            if ((cha*2)+1 > size()){    
                 menor = esq;
+                ind = (cha*2);
             } else{
+                dir = heap.get((cha*2)+1);
                 if (esq.getChave() > dir.getChave()){
                     menor = dir;
                     ind = (cha*2)+1;
@@ -93,24 +107,18 @@ public class HeapArray{
 
             }
             
-            if (menor.getChave() < heap[cha].getChave()){
-                    Item sub = heap[cha];
-                    heap[cha] = menor;
-                    heap[ind] = sub;
-                }
             
-            cha = ind;
         }
     }
-    private void grow(){
-        int novata;
-        novata = cap*2;
+    // private void grow(){
+    //     int novata;
+    //     novata = cap*2;
 
-        Item[] neway = new Item[novata];
-        for (int fal = 1; fal < size()+1; fal++){
-            neway[fal] = heap[fal];
-        }
-        cap = novata;
-        heap = neway;   
-    }
+    //     Item[] neway = new Item[novata];
+    //     for (int fal = 1; fal < size()+1; fal++){
+    //         neway[fal] = heap[fal];
+    //     }
+    //     cap = novata;
+    //     heap = neway;   
+    // }
 }

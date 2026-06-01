@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 public class Teste{
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
@@ -12,7 +13,7 @@ public class Teste{
         //it = new Item(6, "Alo");
         //hop.insert(it);
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 10; i++){
             int obj = sc.nextInt();
             it = new Item(obj, "Alo" + i);
             hop.insert(it);
@@ -21,5 +22,17 @@ public class Teste{
             pod = (hop.elemento(i));
             System.out.print( pod.getChave() + " ");
         }
+        System.out.println(hop.size());
+
+        System.out.println("");
+        System.out.println(hop.removeMin());
+
+        System.out.println("");
+        System.out.println("-------------------------------------");
+        for (int i = 1; i < hop.size()+1; i++){
+            pod = (hop.elemento(i));
+            System.out.print( pod.getChave() + " ");
+        }
+        System.out.println(" ," + hop.size() + " Tamanho atual");
     }   
 }

@@ -1,13 +1,19 @@
 public class HeapArray{
-    private Object[] heap;
+    private Item[] heap;
     private int size;
     private int ultimo;
+    private int cap;
 
     public HeapArray(Item elemento){
+        cap = 5;
+        heap = new Item[cap];
         heap[1] = elemento;
         size = 1;
         ultimo = 2;
-    }   
+    }
+    public Item elemento(int i){
+        return heap[i];
+    }
 
     public int size(){
         return size;
@@ -18,6 +24,9 @@ public class HeapArray{
     }
 
     public void insert(Item ele){
+        if (size == cap){
+            grow();
+        }
         heap[ultimo] = ele;
         upheap(ultimo);
         ultimo++;
@@ -26,7 +35,7 @@ public class HeapArray{
 
     private void upheap(int cha){
         while (heap[cha].getChave() < heap[cha/2].getChave()){
-            Object sub = cha;
+            Item sub = heap[cha];
             heap[cha] = heap[cha/2];
             heap[cha/2] = sub;
 
@@ -35,17 +44,17 @@ public class HeapArray{
 
     }
 
-    public int min(){
+    public Item min(){
         return heap[1];
     }
 
     public int removeMin(){
-        Object removed = min();
-        Object menor = min();
-        menor = heap[ultimo-1]
+        Item removed = min();
+        Item menor = min();
+        menor = heap[ultimo-1];
         heap[ultimo-1] = null;
         --ultimo;
-        downheap(heap[1].getChave())
+        downheap(heap[1].getChave());
 
         --size;
 
@@ -56,29 +65,30 @@ public class HeapArray{
         
         Item esq = heap[cha*2];
         Item dir = heap[(cha*2)+1];
-
+        Item menor;
+        int ind;
         if (esq.getChave() > dir.getChave()){
-            Item menor = dir;
-            int ind = (cha*2)+1;
+            menor = dir;
+            ind = (cha*2)+1;
         } else{
-            Item menor = esq;
-            int ind = (cha*2);
+            menor = esq;
+            ind = (cha*2);
         }
 
         while (heap[cha].getChave() > menor.getChave() && heap[cha*2] == null){
 
-            Item esq = heap[cha*2];
-            Item dir = heap[(cha*2)+1];
+            esq = heap[cha*2];
+            dir = heap[(cha*2)+1];
 
             if (dir == null){
-                Item menor = esq;
+                menor = esq;
             } else{
                 if (esq.getChave() > dir.getChave()){
-                    Item menor = dir;
-                    int ind = (cha*2)+1;
+                    menor = dir;
+                    ind = (cha*2)+1;
                 } else{
-                    Item menor = esq;
-                    int ind = (cha*2);
+                    menor = esq;
+                    ind = (cha*2);
                 }
 
             }
@@ -91,5 +101,16 @@ public class HeapArray{
             
             cha = ind;
         }
+    }
+    private void grow(){
+        int novata;
+        novata = cap*2;
+
+        Item[] neway = new Item[novata];
+        for (int fal = 1; fal < size()+1; fal++){
+            neway[fal] = heap[fal];
+        }
+        cap = novata;
+        heap = neway;   
     }
 }

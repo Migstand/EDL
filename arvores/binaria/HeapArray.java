@@ -34,7 +34,7 @@ public class HeapArray{
     }
 
     private void upheap(int cha){
-        while (heap[cha].getChave() < heap[cha/2].getChave()){
+        while (cha !=1 && heap[cha].getChave() < heap[cha/2].getChave()){
             Item sub = heap[cha];
             heap[cha] = heap[cha/2];
             heap[cha/2] = sub;
@@ -75,7 +75,7 @@ public class HeapArray{
             ind = (cha*2);
         }
 
-        while (heap[cha].getChave() > menor.getChave() && heap[cha*2] == null){
+        while (heap[cha*2] == null  && heap[cha].getChave() > menor.getChave()){
 
             esq = heap[cha*2];
             dir = heap[(cha*2)+1];

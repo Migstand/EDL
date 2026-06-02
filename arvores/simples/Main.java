@@ -18,7 +18,7 @@ public class Main{
         System.out.println(" ");
         
 
-        for (int i = 0; i < 2; i++){
+        for (int i = 0; i < 3; i++){
             Object pri = sc.nextLine();
             mr_tree.addFilho(mr_tree.root(), pri);
         }
@@ -67,10 +67,19 @@ public class Main{
 
         System.out.println("---------------------------------------");
         System.out.println(" ");
-        Iterator<No> it = mr_tree.nos();
+
+        
+        // Iterator<No> remo = mr_tree.nos();
+        
+        // remo.next();
+        // mr_tree.removeFilho(remo);
 
         mr_tree.replace(mr_tree.root(), "PACU");
         
+        ArrayList<No> cai = mr_tree.root().getFilhos();
+        mr_tree.removeFilho(cai.get(1));
+        
+        Iterator<No> it = mr_tree.nos();
         while (it.hasNext()){
             No mod = it.next();
             No pai = mod.getPai();//mr_tree.parent(mod);

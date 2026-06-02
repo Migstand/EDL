@@ -132,7 +132,26 @@ public class Arvore implements InterfaceArvore{
     }
     
     public void removeFilho(No no){
-        no.tiraFilho(no);
+        
+        ArrayList<No> fi = no.getFilhos();
+        No novo = fi.get(0);
+        ArrayList<No> fela = novo.getFilhos();
+        for (int i = 1; i < fi.size(); i++){
+            fela.add(fi.get(i));
+            fi.get(i).setPai(novo);
+        }
+        
+        if (no == root()){
+            raiz = novo;
+            novo.setPai(null);
+        } else {
+            ArrayList<No> pailist = (no.getPai()).getFilhos();
+            int ind = pailist.indexOf(no);
+            novo.setPai((no.getPai()));
+            fi = (novo.getPai()).getFilhos();
+            
+            fi.set(ind, novo);
+        }
         tam--;
     }
 

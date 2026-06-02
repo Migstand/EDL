@@ -31,7 +31,7 @@ public class No{
         return filhos;
     }
 
-    public void tiraFilho(No no){
-        filhos.remove(no);
+    public void setPai(No no){
+        pai = no;
     }
 }

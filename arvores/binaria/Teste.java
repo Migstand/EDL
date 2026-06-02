@@ -13,7 +13,7 @@ public class Teste{
         //it = new Item(6, "Alo");
         //hop.insert(it);
 
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 15; i++){
             int obj = sc.nextInt();
             it = new Item(obj, "Alo" + i);
             hop.insert(it);

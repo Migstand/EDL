@@ -5,11 +5,33 @@ public class No {
     private No direito;
 
     public No(No p, Object ele){
-        pai = p;
-        elemento = ele; 
+        this.pai = p;
+        this.elemento = ele; 
+        this.esquerdo = null;
+        this.direito = null;
     }
 
-    public setEsq(Object ele){
-        No novo_no = new No()
+    public void setEsq(Object ele){
+        this.esquerdo = new No(this, ele);
+    }
+
+    public void setDir(Object ele){
+        this.direito = new No(this, ele);
+    }
+
+    public No getEsq(){
+        return esquerdo;
+    }
+
+    public No getDir(){
+        return direito;
+    }
+    
+    public Object getElemento(){
+        return elemento;
+    }
+
+    public No getPai(){
+        return pai;
     }
 }

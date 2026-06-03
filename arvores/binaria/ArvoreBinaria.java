@@ -1,3 +1,6 @@
+import java.util.Iterator;
+import java.util.ArrayList;
+
 public class ArvoreBinaria implements InterfaceBinaria{
     private No raiz;
     private int tam;
@@ -22,13 +25,17 @@ public class ArvoreBinaria implements InterfaceBinaria{
             return 0;
         } else {
             int h = 0;
-
-            // if (hasLeft(ra)){
-            //     h = Math.max(h, height(leftChild(ra)));
+            // Iterator<No> filhos = children(ra);
+            // while (filhos.hasNext()){
+            //     No it = filhos.next();
+            //     h = Math.max(h, height(ra));
             // }
-            // if (hasRight(ra)){
-            //     h = Math.max(h, height(rightChildChild(ra)));
-            // }
+            if (hasLeft(ra)){
+                h = Math.max(h, height(leftChild(ra)));
+            }
+            if (hasRight(ra)){
+                h = Math.max(h, height(rightChild(ra)));
+            }
             return ++h;
         }
     }
@@ -78,21 +85,24 @@ public class ArvoreBinaria implements InterfaceBinaria{
     }
 
     public Iterator<No> children(No no){
-        Iterator<No> filhos = (no.getFilhos()).iterator();
+        ArrayList<No> dois = new ArrayList<>(2);
+        if (hasLeft(no)){
+            dois.add(no.getEsq());
+        }
+        if (hasRight(no)){
+            dois.add(no.getDir());
+        }
+        Iterator<No> filhos = dois.iterator();
         return filhos;
     }
 
     // METODOS DE CONSULTA \\
     public boolean isInternal(No no){
-        ArrayList<No> filhos = no.getFilhos();
-        int size = filhos.size();
-        return size != 0;
+        return (hasLeft(no) || hasRight(no));
     }
 
     public boolean isExternal(No no){
-        ArrayList<No> filhos = no.getFilhos();
-        int size = filhos.size();
-        return size == 0;
+        return (!(hasLeft(no)) && !(hasRight(no)));
     }
 
     public boolean isRoot(No no){
@@ -107,4 +117,109 @@ public class ArvoreBinaria implements InterfaceBinaria{
         }
 
     }
+
+    // MÉTODOS DE BUSCA \\
+    public void pre_order(No v, ArrayList<Object> lista){
+        if (v == null){
+            return;
+        }
+
+        lista.add(v.getElemento());
+
+        Iterator<No> meus_fi = children(v);
+
+        while (meus_fi.hasNext()){
+            No prox = meus_fi.next();
+            pre_order(prox, lista);
+        }
+    }
+
+    public void pre_orderNo(No v, ArrayList<No> lista){
+        if (v == null){
+            return;
+        }
+
+        lista.add(v);
+
+        Iterator<No> meus_fi = children(v);
+
+        while (meus_fi.hasNext()){
+            No prox = meus_fi.next();
+            pre_orderNo(prox, lista);
+        }
+    }
+
+    // METODOS DE ATUALIZAÇÃO \\
+    public Object replace(No no, Object o){
+        Object replaced = no.getElemento();
+        no.setElemento(o);
+        return replaced;
+    }
+
+    public void addLeft(No no, Object o){
+        if (hasLeft(no)){
+            ;
+        }else{
+            no.setEsq(o);
+            tam++;
+        }
+    }
+
+    public void addRight(No no, Object o){
+        if (hasRight(no)){
+            ;
+        } else {
+            no.setDir(o);
+            tam++;
+        }
+    }
+
+    public void removeFilho(No no){
+        if (isExternal(no)){
+            if ((no.getPai()).getEsq() == no){
+                (no.getPai()).setEsq(null);   
+            } else {
+                (no.getPai()).setDir(null);   
+            }
+        }
+        Iterator<No> fi = children(no);
+        No novo = fi.next();
+        Object swit = inOrderfind(novo);
+
+        no.setElemento(swit);
+        tam--;
+    }
+
+    private Object inOrderfind(No no){
+        if (hasLeft(no)){
+            Object ele = inOrderfind(leftChild(no));
+            return ele;
+        } if (hasRight(no)){
+            Object ele = inOrderfind(rightChild(no));
+            return ele;
+        }
+
+        // // Visite \\
+        
+        // if (no == null){
+        //     return null;
+        // } else{
+        //     Object ele = no.getElemento();
+        //     if ((no.getPai()).getEsq() == no){
+        //         (no.getPai()).setEsq(null);
+        //         return ele;
+        //     } else{
+        //         (no.getPai()).setDir(null);
+        //         return ele;
+        //     }
+        // }
+        
+        // //Fim visita \\
+
+        // if (hasRight(no)){
+        //     inOrderfind(leftChild(no));
+        // }
+        return no.getElemento();
+    }
+    
 }

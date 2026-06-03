@@ -34,4 +34,8 @@ public class No {
     public No getPai(){
         return pai;
     }
+
+    public void setElemento(Object o){
+        this.elemento = o;
+    }
 }

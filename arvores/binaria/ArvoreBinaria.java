@@ -160,7 +160,8 @@ public class ArvoreBinaria implements InterfaceBinaria{
         if (hasLeft(no)){
             ;
         }else{
-            no.setEsq(o);
+            No novo = new No(no, o);
+            no.setEsq(novo);
             tam++;
         }
     }
@@ -169,7 +170,8 @@ public class ArvoreBinaria implements InterfaceBinaria{
         if (hasRight(no)){
             ;
         } else {
-            no.setDir(o);
+            No novo = new No(no, o);
+            no.setDir(novo);
             tam++;
         }
     }
@@ -181,12 +183,12 @@ public class ArvoreBinaria implements InterfaceBinaria{
             } else {
                 (no.getPai()).setDir(null);   
             }
-        }
-        Iterator<No> fi = children(no);
-        No novo = fi.next();
-        Object swit = inOrderfind(novo);
+        } else{
+            Object swit = inOrderfind(no);
 
-        no.setElemento(swit);
+            no.setElemento(swit);
+            
+        }
         tam--;
     }
 
@@ -199,27 +201,13 @@ public class ArvoreBinaria implements InterfaceBinaria{
             return ele;
         }
 
-        // // Visite \\
-        
-        // if (no == null){
-        //     return null;
-        // } else{
-        //     Object ele = no.getElemento();
-        //     if ((no.getPai()).getEsq() == no){
-        //         (no.getPai()).setEsq(null);
-        //         return ele;
-        //     } else{
-        //         (no.getPai()).setDir(null);
-        //         return ele;
-        //     }
-        // }
-        
-        // //Fim visita \\
-
-        // if (hasRight(no)){
-        //     inOrderfind(leftChild(no));
-        // }
-        return no.getElemento();
+        Object ele = no.getElemento();
+        if ((no.getPai()).getEsq() == no){
+                (no.getPai()).setEsq(null);   
+            } else {
+                (no.getPai()).setDir(null);   
+            }
+        return ele;
     }
     
 }

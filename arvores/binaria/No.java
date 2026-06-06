@@ -11,12 +11,12 @@ public class No {
         this.direito = null;
     }
 
-    public void setEsq(Object ele){
-        this.esquerdo = new No(this, ele);
+    public void setEsq(No ele){
+        this.esquerdo = ele;
     }
 
-    public void setDir(Object ele){
-        this.direito = new No(this, ele);
+    public void setDir(No ele){
+        this.direito = ele;
     }
 
     public No getEsq(){
@@ -33,6 +33,10 @@ public class No {
 
     public No getPai(){
         return pai;
+    }
+
+    public void setPai(No pai){
+        this.pai = pai;
     }
 
     public void setElemento(Object o){

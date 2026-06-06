@@ -245,6 +245,9 @@ public class BinariaPesq implements InterfaceBinaria{
     }
 
     private No treesearch(Object ele, No no){
+        if (no == null){
+            return no;
+        }
         if (isExternal(no)){
             return no;
         }

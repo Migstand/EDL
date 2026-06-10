@@ -252,10 +252,17 @@ public class Heap{
 
     private void downheap(No no){
         
-        Item esq = no.getEsq();
-        Item dir = no.getDir();
-        Item menor;
-    
+        Item esq, dir, menor;
+
+        if (hasLeft(no)){
+            esq = no.getEsq();
+        }
+        
+        if (hasRight(no)){
+            dir = no.getDir();
+        }
+        
+
         if (esq.getChave() > dir.getChave()){
             menor = dir;
             
@@ -271,7 +278,7 @@ public class Heap{
                     menor.setElemento(sub);
                 }
             
-            cha = ind;
+            no = menor;
 
             if (cha*2 > size()){
                 break;

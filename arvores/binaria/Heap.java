@@ -1,13 +1,15 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Heap{
-    private No raiz;
+    private Noh raiz;
     private int size;
-    private No ultimo;
+    private Noh ultimo;
 
-    public HeapArray(Item elemento){
-        raiz = new No(null, elemento);
+    public Heap(Item elemento){
+        raiz = new Noh(null, elemento);
         ultimo = raiz;
+        size = 1;
     }
     // public Item elemento(int i){
     //     return heap.get(i);
@@ -21,14 +23,14 @@ public class Heap{
         return size==0;
     }
 
-    public int height(No ra){
+    public int height(Noh ra){
         if (isExternal(ra)){
             return 0;
         } else {
             int h = 0;
-            // Iterator<No> filhos = children(ra);
+            // Iterator<Noh> filhos = children(ra);
             // while (filhos.hasNext()){
-            //     No it = filhos.next();
+            //     Noh it = filhos.next();
             //     h = Math.max(h, height(ra));
             // }
             if (hasLeft(ra)){
@@ -41,54 +43,96 @@ public class Heap{
         }
     }
 
+    public Iterator<Item> elements(){
+        ArrayList<Item> elementos = new ArrayList<Item>();
+        pre_order(raiz,elementos);
+        
+        Iterator<Item> ite = elementos.iterator();
+        return ite;
+    }
+
+    public Iterator<Noh> nos(){
+        ArrayList<Noh> elementos = new ArrayList<Noh>();
+        pre_orderNo(raiz, elementos);
+
+        Iterator<Noh> ite = elementos.iterator();
+        return ite;
+    }
+
+    // MÉTODOS DE BUSCA \\
+    public void pre_order(Noh v, ArrayList<Item> lista){
+        if (v == null){
+            return;
+        }
+
+        lista.add(v.getElemento());
+
+        Iterator<Noh> meus_fi = children(v);
+
+        while (meus_fi.hasNext()){
+            Noh prox = meus_fi.next();
+            pre_order(prox, lista);
+        }
+    }
+
+    public void pre_orderNo(Noh v, ArrayList<Noh> lista){
+        if (v == null){
+            return;
+        }
+
+        lista.add(v);
+
+        Iterator<Noh> meus_fi = children(v);
+
+        while (meus_fi.hasNext()){
+            Noh prox = meus_fi.next();
+            pre_orderNo(prox, lista);
+        }
+    }
+
     public void insert(Item ele){
         
         
-        No encontrado = vai(ultimo);
+        Noh encontrado = vai(ultimo);
+        Noh novo;
 
         if (isRoot(encontrado)){
             if (hasRight(encontrado)){
                 encontrado =  encontrado.getDir();
                 encontrado = volta(encontrado);
-                No novo = new No(encontrado, ele);
+                novo = new Noh(encontrado, ele);
                 if (hasLeft(encontrado)){
-                    encontrado.setEsq(novo);
-                } else{
                     encontrado.setDir(novo);
+                } else{
+                    encontrado.setEsq(novo);
                 }
             } else {
                 if (hasLeft(encontrado)){
-                    No novo = new No(encontrado, ele);
+                    novo = new Noh(encontrado, ele);
                     encontrado.setDir(novo);
                     ultimo = novo;        
                 } else {
-                    No novo = new No(encontrado, ele);
+                    novo = new Noh(encontrado, ele);
                     encontrado.setEsq(novo);
                     ultimo = novo;
                 }
                 
             }
         } else{
-            No paizao = encontrado.getPai();
+            Noh paizao = encontrado.getPai();
             if (hasRight(paizao)){
                 encontrado =  paizao.getDir();
                 encontrado = volta(encontrado);
-                No novo = new No(encontrado, ele);
+                novo = new Noh(encontrado, ele);
                 if (hasLeft(encontrado)){
-                    encontrado.setEsq(novo);
-                } else{
                     encontrado.setDir(novo);
+                } else{
+                    encontrado.setEsq(novo);
                 }
-            } else {
-                if (hasLeft(paizao)){
-                    No novo = new No(paizao, ele);
-                    paizao.setDir(novo);
-                    ultimo = novo;        
-                } else {
-                    No novo = new No(paizao, ele);
-                    paizao.setEsq(novo);
-                    ultimo = novo;
-                }
+            } else {    
+                novo = new Noh(paizao, ele);
+                paizao.setDir(novo);
+                ultimo = novo;
                 
             }
             ultimo = novo;
@@ -100,17 +144,31 @@ public class Heap{
 
     }
 
-    private No vai(No no){
-        if (isRoot(no)){
+    private Noh volta(Noh no){
+        System.out.println(no.getElemento().getChave() + " Chave volta");
+        if (isExternal(no)){
             return no;
-        } else {
+        }
+
+        if (!hasRight(no)){
+            return no;
+        }
+        else {
             return volta(no.getEsq());
+            
         }
     }
 
-    private No volta(No no){
-        if (isExternal(no)){
+    private Noh vai(Noh no){
+        System.out.println(no.getElemento().getChave() + " Chave vai");
+        if (no == null){
             return no;
+        }
+        if (isRoot(no)){
+            return no;
+        }
+        if (isExternal(no)){
+            return no.getPai();
         } else {
             if(leftChild(no.getPai()) == no){
                 return no;
@@ -122,58 +180,58 @@ public class Heap{
 
 
     // ADITIONAL METHODS \\
-    public No leftChild(No no){
+    public Noh leftChild(Noh no){
         return no.getEsq();
     }
 
-    public No rightChild(No no){
+    public Noh rightChild(Noh no){
         return no.getDir();
     }
 
-    public boolean hasLeft(No no){
+    public boolean hasLeft(Noh no){
         return no.getEsq() != null;
     }
 
-    public boolean hasRight(No no){
+    public boolean hasRight(Noh no){
         return no.getDir() != null;
     }
 
 
     // MÉTODOS DE ACESSO \\
-    public No root(){
+    public Noh root(){
         return raiz;
     }
 
-    public No parent(No no){
+    public Noh parent(Noh no){
         return no.getPai();
     }
 
-    public Iterator<No> children(No no){
-        ArrayList<No> dois = new ArrayList<>(2);
+    public Iterator<Noh> children(Noh no){
+        ArrayList<Noh> dois = new ArrayList<>(2);
         if (hasLeft(no)){
             dois.add(no.getEsq());
         }
         if (hasRight(no)){
             dois.add(no.getDir());
         }
-        Iterator<No> filhos = dois.iterator();
+        Iterator<Noh> filhos = dois.iterator();
         return filhos;
     }
 
     // METODOS DE CONSULTA \\
-    public boolean isInternal(No no){
+    public boolean isInternal(Noh no){
         return (hasLeft(no) || hasRight(no));
     }
 
-    public boolean isExternal(No no){
+    public boolean isExternal(Noh no){
         return (!(hasLeft(no)) && !(hasRight(no)));
     }
 
-    public boolean isRoot(No no){
+    public boolean isRoot(Noh no){
         return no == raiz;
     }
 
-    public int depth(No no){
+    public int depth(Noh no){
         if (isRoot(no)){
             return 0;
         } else{
@@ -182,7 +240,7 @@ public class Heap{
 
     }
 
-    private void upheap(No no){
+    private void upheap(Noh no){
         while (null != no.getPai() && (no.getElemento()).getChave() < ((no.getPai()).getElemento()).getChave()){
             
             Item sub = no.getElemento();
@@ -194,7 +252,7 @@ public class Heap{
 
     }
 
-    public Item min(){
+    public Noh min(){
         return raiz;
     }
 
@@ -202,7 +260,7 @@ public class Heap{
         Item removed = min().getElemento();
         
         raiz.setElemento(ultimo.getElemento());
-        No encontrado = vaiesp(ultimo);
+        Noh encontrado = vaiesp(ultimo);
 
         if (isRoot(encontrado)){
             if (hasLeft(encontrado)){
@@ -212,7 +270,7 @@ public class Heap{
                 ultimo = encontrado;
             }
         } else{
-            No paizao = encontrado.getPai();
+            Noh paizao = encontrado.getPai();
             if (hasLeft(paizao)){
                 encontrado =  paizao.getEsq();
                 ultimo = voltaesp(encontrado);
@@ -230,17 +288,16 @@ public class Heap{
         return removed.getChave();
     }
 
-    private No vaiesp(No no){
+    private Noh vaiesp(Noh no){
+        System.out.println(no.getElemento().getChave() + " Chave vai");
+        if (no == null){
+            return no;
+        }
         if (isRoot(no)){
             return no;
-        } else {
-            return volta(no.getDir());
         }
-    }
-
-    private No voltaesp(No no){
         if (isExternal(no)){
-            return no;
+            return no.getPai();
         } else {
             if(rightChild(no.getPai()) == no){
                 return no;
@@ -250,57 +307,66 @@ public class Heap{
         }
     }
 
-    private void downheap(No no){
-        
-        Item esq, dir, menor;
-
-        if (hasLeft(no)){
-            esq = no.getEsq();
-        }
-        
-        if (hasRight(no)){
-            dir = no.getDir();
-        }
-        
-
-        if (esq.getChave() > dir.getChave()){
-            menor = dir;
-            
-        } else{
-            menor = esq;
-            
+    private Noh voltaesp(Noh no){
+        System.out.println(no.getElemento().getChave() + " Chave volta");
+        if (isExternal(no)){
+            return no;
         }
 
-        while (isInternal(no) && (no.getElemento()).getChave() > menor.getChave()){
-            if (menor.getChave() < (no.getElemento()).getChave()){
-                    Item sub = no.getElemento();
-                    no.setElemento(menor.getElemento());
-                    menor.setElemento(sub);
-                }
+        if (!hasLeft(no)){
+            return no;
+        }
+        else {
+            return volta(no.getDir());
             
-            no = menor;
-
-            if (cha*2 > size()){
-                break;
-            }
-            esq = heap.get(cha*2);
-            
-            
-            if ((cha*2)+1 > size()){    
-                menor = esq;
-                ind = (cha*2);
-            } else{
-                dir = heap.get((cha*2)+1);
-                if (esq.getChave() > dir.getChave()){
-                    menor = dir;
-                    ind = (cha*2)+1;
-                } else{
-                    menor = esq;
-                    ind = (cha*2);
-                }
-
-            }
         }
     }
 
+    private void downheap(Noh no){
+        
+        Noh esq, dir, menor;
+
+        if (hasLeft(no)){
+            esq = no.getEsq();
+            if (hasRight(no)){
+                dir = no.getDir();
+
+                if ((esq.getElemento()).getChave() > (dir.getElemento()).getChave()){
+                    menor = dir;
+            
+                } else{
+                    menor = esq;                  
+                }
+            } else {
+                menor = esq;
+            }
+        
+            while (isInternal(no) && (no.getElemento()).getChave() > (menor.getElemento()).getChave()){
+                if ((menor.getElemento()).getChave() < (no.getElemento()).getChave()){
+                        Item sub = no.getElemento();
+                        no.setElemento(menor.getElemento());
+                        menor.setElemento(sub);
+                    }
+                    
+                no = menor;
+
+                if (hasLeft(no)){
+                    esq = no.getEsq();
+                    if (hasRight(no)){
+                        dir = no.getDir();
+
+                        if ((esq.getElemento()).getChave() > (dir.getElemento()).getChave()){
+                            menor = dir;
+                    
+                        } else{
+                            menor = esq;
+                        }
+                    } else {
+                        menor = esq;
+                    }
+                }
+            }
+        }
+        
+    }
 }

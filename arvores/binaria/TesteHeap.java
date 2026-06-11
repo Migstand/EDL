@@ -16,7 +16,7 @@ public class TesteHeap{
         //it = new Item(6, "Alo");
         //hop.insert(it);
 
-        for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 15; i++){
             int obj = sc.nextInt();
             it = new Item(obj, "Alo" + i);
             hop.insert(it);
@@ -27,6 +27,12 @@ public class TesteHeap{
             Noh pot = (pots.next());
             System.out.print(pot.getElemento().getChave() + " ");
         }
+
+        System.out.println("");
+        
+        hop.mostrar();
+
+        System.out.println("");
         
         System.out.println(hop.size());
 
@@ -41,5 +47,11 @@ public class TesteHeap{
             System.out.print(pot.getElemento().getChave() + " ");
         }
         System.out.println(" , " + hop.size() + " Tamanho atual");
+
+        System.out.println("");
+        
+        hop.mostrar();
+        
+        System.out.println("");
     }   
 }

@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Heap{
+    private int num = 0;
     private Noh raiz;
     private int size;
     private Noh ultimo;
@@ -98,13 +99,15 @@ public class Heap{
 
         if (isRoot(encontrado)){
             if (hasRight(encontrado)){
-                encontrado =  encontrado.getDir();
+                encontrado =  encontrado.getEsq();
                 encontrado = volta(encontrado);
                 novo = new Noh(encontrado, ele);
                 if (hasLeft(encontrado)){
                     encontrado.setDir(novo);
+                    ultimo = novo;
                 } else{
                     encontrado.setEsq(novo);
+                    ultimo = novo;
                 }
             } else {
                 if (hasLeft(encontrado)){
@@ -120,21 +123,50 @@ public class Heap{
             }
         } else{
             Noh paizao = encontrado.getPai();
-            if (hasRight(paizao)){
-                encontrado =  paizao.getDir();
+            if (leftChild(paizao) == encontrado){
+            //     novo = new Noh(paizao, ele);
+            //     paizao.setDir(novo);
+            //     ultimo = novo;
+                if (hasRight(paizao)){
+                    encontrado =  paizao.getDir();
+                    encontrado = volta(encontrado);
+                    novo = new Noh(encontrado, ele);
+                    if (hasLeft(encontrado)){
+                        encontrado.setDir(novo);
+                        ultimo = novo;
+                    } else{
+                        encontrado.setEsq(novo);
+                        ultimo = novo;
+                    }
+                } else {    
+                    novo = new Noh(paizao, ele);
+                    paizao.setDir(novo);
+                    ultimo = novo;
+                    
+                }
+            } else {
+
+                if (hasRight(paizao)){
+                encontrado =  paizao.getEsq();
                 encontrado = volta(encontrado);
                 novo = new Noh(encontrado, ele);
                 if (hasLeft(encontrado)){
                     encontrado.setDir(novo);
+                    ultimo = novo;
                 } else{
                     encontrado.setEsq(novo);
+                    ultimo = novo;
                 }
             } else {    
+                encontrado =  paizao.getEsq();
+                encontrado = volta(encontrado);
                 novo = new Noh(paizao, ele);
                 paizao.setDir(novo);
                 ultimo = novo;
                 
             }
+            }
+            
             ultimo = novo;
         }
         
@@ -167,14 +199,11 @@ public class Heap{
         if (isRoot(no)){
             return no;
         }
-        if (isExternal(no)){
-            return no.getPai();
-        } else {
-            if(leftChild(no.getPai()) == no){
-                return no;
-            } else{
-                return vai(no.getPai());
-            }
+        
+        if(leftChild(no.getPai()) == no){
+            return no;
+        } else{
+            return vai(no.getPai());
         }
     }
 
@@ -260,6 +289,11 @@ public class Heap{
         Item removed = min().getElemento();
         
         raiz.setElemento(ultimo.getElemento());
+        if (leftChild(ultimo.getPai())== ultimo){
+            ultimo.getPai().setEsq(null);    
+        } else{
+            ultimo.getPai().setDir(null);
+        }
         Noh encontrado = vaiesp(ultimo);
 
         if (isRoot(encontrado)){
@@ -368,5 +402,35 @@ public class Heap{
             }
         }
         
+    }
+
+    public void mostrar(){
+        
+        Item matriz[][] = new Item[height(root())+1][size()];
+        visuals(matriz, root());
+        this.num = 0;
+
+        for (int i = 0; i < height(root())+1; i++){
+            for (int j = 0; j < size(); j++){
+                if (matriz[i][j] == null){
+                    System.out.print(" ");
+                } else {
+                    System.out.print(matriz[i][j].getChave() + "   ");
+                }
+            }
+            System.out.println("");
+        }
+    }
+
+    private void visuals(Item[][] ob, Noh no){
+        if (hasLeft(no)){
+            visuals(ob, leftChild(no));
+        }
+        // System.out.println(this.num);
+        ob[depth(no)][this.num] = no.getElemento();
+        ++this.num;
+        if (hasRight(no)){
+            visuals(ob, rightChild(no));
+        }
     }
 }
